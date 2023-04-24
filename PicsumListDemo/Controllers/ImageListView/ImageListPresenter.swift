@@ -14,18 +14,23 @@ import UIKit
 
 protocol ImageListPresentationLogic
 {
-    func presentSomething(response: ImageList.Something.Response)
+    func presentGetImagesPicsum(response: ImageList.FetchImageURL.Response)
+    func presentLoadImage(response: ImageList.GetImage.Response)
 }
 
 class ImageListPresenter: ImageListPresentationLogic
 {
     weak var viewController: ImageListDisplayLogic?
     
-    // MARK: Do something
+    // MARK: ImageListPresentationLogic
     
-    func presentSomething(response: ImageList.Something.Response)
-    {
-        let viewModel = ImageList.Something.ViewModel()
-        viewController?.displaySomething(viewModel: viewModel)
+    func presentGetImagesPicsum(response: ImageList.FetchImageURL.Response) {
+        let viewModel = ImageList.FetchImageURL.ViewModel(startIndex: response.startIndex, endIndex: response.endIndex, urls: response.urls)
+        viewController?.displayGetImagesPicsum(viewModel: viewModel)
+    }
+    
+    func presentLoadImage(response: ImageList.GetImage.Response) {
+        let viewModel = ImageList.GetImage.ViewModel(rowUpdate: response.rowUpdate, img: response.img)
+        viewController?.displayLoadImage(viewModel: viewModel)
     }
 }

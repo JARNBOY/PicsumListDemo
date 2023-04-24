@@ -14,28 +14,41 @@ import UIKit
 
 protocol ImageListBusinessLogic
 {
-    func doSomething(request: ImageList.Something.Request)
+    func fetchImagesPicsum()
+    func loadImage(url: String ,row: Int)
 }
 
 protocol ImageListDataStore
 {
-    //var name: String { get set }
+    var imageURLDetail: String { get set }
 }
 
 class ImageListInteractor: ImageListBusinessLogic, ImageListDataStore
 {
     var presenter: ImageListPresentationLogic?
-    var worker: ImageListWorker?
-    //var name: String = ""
+    var worker: ImageListWorker = ImageListWorker(service: ImageListService())
     
-    // MARK: Do something
+    var imageURLDetail: String = ""
+    private var currentIndex = 0
+    private var maxImageFetch = 300
     
-    func doSomething(request: ImageList.Something.Request)
-    {
-        worker = ImageListWorker()
-        worker?.doSomeWork()
-        
-        let response = ImageList.Something.Response()
-        presenter?.presentSomething(response: response)
+    // MARK: ImageListBusinessLogic
+    
+    func fetchImagesPicsum() {
+        let startIndex = self.currentIndex
+        let endIndex = startIndex + self.maxImageFetch
+        worker.generateListURL(startIndex: startIndex, endIndex: endIndex) { imageUrls in
+            let response = ImageList.FetchImageURL.Response(startIndex: startIndex, endIndex: endIndex, urls: imageUrls)
+            presenter?.presentGetImagesPicsum(response: response)
+        }
+    }
+    
+    func loadImage(url: String ,row: Int) {
+        worker.loadImage(url: url) { img in
+            self.presenter?.presentLoadImage(response: ImageList.GetImage.Response(rowUpdate: row, img: img))
+        } fail: { err in
+            self.presenter?.presentLoadImage(response: ImageList.GetImage.Response(rowUpdate: row, img: nil))
+        }
+
     }
 }

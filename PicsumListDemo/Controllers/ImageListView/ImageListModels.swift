@@ -15,17 +15,32 @@ import UIKit
 enum ImageList
 {
     // MARK: Use cases
-    
-    enum Something
+    enum FetchImageURL
     {
-        struct Request
-        {
-        }
         struct Response
         {
+            let startIndex: Int
+            let endIndex: Int
+            let urls: [String]
         }
         struct ViewModel
         {
+            let startIndex: Int
+            let endIndex: Int
+            let urls: [String]
+        }
+    }
+    
+    enum GetImage {
+        struct Response
+        {
+            let rowUpdate: Int
+            let img: UIImage?
+        }
+        struct ViewModel
+        {
+            let rowUpdate: Int
+            let img: UIImage?
         }
     }
 }

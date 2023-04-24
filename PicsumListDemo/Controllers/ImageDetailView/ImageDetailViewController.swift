@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol ImageDetailDisplayLogic: class
+protocol ImageDetailDisplayLogic: AnyObject
 {
     func displaySomething(viewModel: ImageDetail.Something.ViewModel)
 }

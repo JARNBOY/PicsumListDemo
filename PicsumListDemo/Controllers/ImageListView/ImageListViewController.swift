@@ -14,32 +14,35 @@ import UIKit
 
 protocol ImageListDisplayLogic: AnyObject
 {
-    func displaySomething(viewModel: ImageList.Something.ViewModel)
+    func displayGetImagesPicsum(viewModel: ImageList.FetchImageURL.ViewModel)
+    func displayLoadImage(viewModel: ImageList.GetImage.ViewModel)
 }
 
 class ImageListViewController: UIViewController, ImageListDisplayLogic
 {
+    @IBOutlet weak var imagesCollectionView: UICollectionView!
+    
     var interactor: ImageListBusinessLogic?
     var router: (NSObjectProtocol & ImageListRoutingLogic & ImageListDataPassing)?
     
-    // MARK: Object lifecycle
+    private var loadedImageList: [URL] = []
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-    {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    // MARK: Object lifecycle
+    override func awakeFromNib() {
+        super.awakeFromNib()
         setup()
     }
     
-    required init?(coder aDecoder: NSCoder)
-    {
-        super.init(coder: aDecoder)
-        setup()
+    // MARK: View lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+        getImagesPicsum()
     }
     
     // MARK: Setup
-    
-    private func setup()
-    {
+    private func setup() {
         let viewController = self
         let interactor = ImageListInteractor()
         let presenter = ImageListPresenter()
@@ -52,38 +55,67 @@ class ImageListViewController: UIViewController, ImageListDisplayLogic
         router.dataStore = interactor
     }
     
-    // MARK: Routing
+    //MARK: View
+    private func setupView() {
+        imagesCollectionView.delegate = self
+        imagesCollectionView.dataSource = self
+        imagesCollectionView.prefetchDataSource = self
+        
+        let nib = UINib(nibName: "ImageViewCell", bundle: nil)
+        imagesCollectionView.register(nib, forCellWithReuseIdentifier: "ImageViewCell")
+        
+    }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
+    // MARK: Function
+    func getImagesPicsum() {
+        interactor?.fetchImagesPicsum()
+    }
+    
+    // MARK: ImageListDisplayLogic
+    func displayGetImagesPicsum(viewModel: ImageList.FetchImageURL.ViewModel) {
+        // Load a batch of images starting from the given index
+        self.loadedImageList = viewModel.urls.compactMap({ URL(string: $0)})
+        imagesCollectionView.reloadData()
+    }
+    
+    func displayLoadImage(viewModel: ImageList.GetImage.ViewModel) {
+        let indexPath = IndexPath(item: viewModel.rowUpdate, section: 0)
+        imagesCollectionView.reloadItems(at: [indexPath])
+    }
+}
+
+
+extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return loadedImageList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageViewCell", for: indexPath) as! ImageViewCell
+        if let imageData = ImageLoaderManager.shared.imageDataCache[loadedImageList[indexPath.row]] {
+            cell.setImageCache(img: UIImage(data: imageData))
+        } else {
+            cell.configureCell(imageUrl: loadedImageList[indexPath.row])
         }
+        
+        return cell
     }
     
-    // MARK: View lifecycle
-    
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
-        doSomething()
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        // Prefetch image data for the specified indexPaths
+        let prefetchUrls = indexPaths.compactMap { indexPath in
+            return loadedImageList[indexPath.row]
+        }
+        ImageLoaderManager.shared.prefetchImageUrls(prefetchUrls)
     }
     
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-    func doSomething()
-    {
-        let request = ImageList.Something.Request()
-        interactor?.doSomething(request: request)
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        cell.fadeAnimation()
     }
     
-    func displaySomething(viewModel: ImageList.Something.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = self.view.bounds.width
+        let height = CGFloat(300)
+        return CGSize(width: width, height: height)
     }
 }
