@@ -14,7 +14,7 @@ import UIKit
 
 protocol ImageDetailBusinessLogic
 {
-    func doSomething(request: ImageDetail.Something.Request)
+    func getImageDetail()
 }
 
 protocol ImageDetailDataStore
@@ -31,12 +31,22 @@ class ImageDetailInteractor: ImageDetailBusinessLogic, ImageDetailDataStore
     
     var imageDetailInfo: ImageDetailInfo? = nil
     
-    // MARK: Do something
+    // MARK: ImageDetailBusinessLogic
     
-    func doSomething(request: ImageDetail.Something.Request)
+    func getImageDetail()
     {
-        worker.loadImageDetail()
-        let response = ImageDetail.Something.Response()
-        presenter?.presentSomething(response: response)
+        if let request = imageDetailInfo {
+            worker.loadImageDetailInfo(id: request.idImageDetail) {[weak self] detailDisplayModel in
+                guard let self = self else { return }
+                let response = ImageDetail.GetDetailDisplay.Response(imageData: request.dataImageDetail, displayModel: detailDisplayModel)
+                self.presenter?.presentGetImageDetail(response: response)
+            } fail: { error in
+                print(error.localizedDescription)
+            }
+
+            
+            
+        }
+        
     }
 }

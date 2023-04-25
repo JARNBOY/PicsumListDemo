@@ -14,18 +14,22 @@ import UIKit
 
 protocol ImageDetailPresentationLogic
 {
-    func presentSomething(response: ImageDetail.Something.Response)
+    func presentGetImageDetail(response: ImageDetail.GetDetailDisplay.Response)
 }
 
 class ImageDetailPresenter: ImageDetailPresentationLogic
 {
     weak var viewController: ImageDetailDisplayLogic?
     
-    // MARK: Do something
+    // MARK: ImageDetailPresentationLogic
     
-    func presentSomething(response: ImageDetail.Something.Response)
+    func presentGetImageDetail(response: ImageDetail.GetDetailDisplay.Response)
     {
-        let viewModel = ImageDetail.Something.ViewModel()
-        viewController?.displaySomething(viewModel: viewModel)
+        let imageData = response.imageData
+        let author = response.displayModel.author
+        let desc = "id: \(response.displayModel.id)\nsize (Width x Height): \(response.displayModel.width) x \(response.displayModel.height)\nurl: \(response.displayModel.url)\ndownload_url: \(response.displayModel.downloadUrl)"
+        
+        let viewModel = ImageDetail.GetDetailDisplay.ViewModel(imageData: imageData, author: author, desc: desc)
+        viewController?.displayGetImageDetail(viewModel: viewModel)
     }
 }

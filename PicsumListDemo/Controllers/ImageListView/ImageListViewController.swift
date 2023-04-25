@@ -105,6 +105,7 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
             cell.configureCell(imageUrl: imageURLs[indexPath.row])
         }
         
+        //fetch more when find last index
         let isLastRow = indexPath.row == imageURLs.count - 1
         if isLastRow {
             self.clearMemoryOfOldCacheImage()

@@ -16,16 +16,20 @@ enum ImageDetail
 {
     // MARK: Use cases
     
-    enum Something
+    enum GetDetailDisplay
     {
-        struct Request
-        {
-        }
         struct Response
         {
+            var imageData: Data
+            var displayModel: DetailDisplayModel
         }
         struct ViewModel
         {
+            var imageData: Data
+            var author: String
+            var desc: String
         }
     }
+    
+    
 }

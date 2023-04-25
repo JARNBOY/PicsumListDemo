@@ -13,10 +13,10 @@
 import UIKit
 
 protocol ImageDetailWorkerInterface {
-    func loadImageDetail()
+    func loadImageDetailInfo(id: Int ,success: @escaping (DetailDisplayModel) -> Void ,fail: @escaping (Error) -> Void)
 }
 
-class ImageDetailWorker
+class ImageDetailWorker: ImageDetailWorkerInterface
 {
     var service: ImageDetailService!
     
@@ -24,7 +24,15 @@ class ImageDetailWorker
         self.service = service
     }
     
-    func loadImageDetail() {
-        
+    func loadImageDetailInfo(id: Int ,success: @escaping (DetailDisplayModel) -> Void ,fail: @escaping (Error) -> Void) {
+        let url = ImageLoaderManager.shared.getURLImageDetail(id: id)
+        service.loadImageDetail(url: url) { result in
+            switch result {
+            case .success(let response):
+                success(response)
+            case .failure(let error):
+                fail(error)
+            }
+        }
     }
 }

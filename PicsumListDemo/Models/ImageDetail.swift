@@ -11,3 +11,17 @@ struct ImageDetailInfo {
     var idImageDetail: Int
     var dataImageDetail: Data
 }
+
+struct DetailDisplayModel: Codable {
+    var id: String
+    var author: String
+    var width: Int
+    var height: Int
+    var url: String
+    var downloadUrl: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id, author, width, height, url
+        case downloadUrl = "download_url"
+    }
+}
