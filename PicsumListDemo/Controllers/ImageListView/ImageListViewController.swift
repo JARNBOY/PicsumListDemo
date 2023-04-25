@@ -25,7 +25,8 @@ class ImageListViewController: UIViewController, ImageListDisplayLogic
     var interactor: ImageListBusinessLogic?
     var router: (NSObjectProtocol & ImageListRoutingLogic & ImageListDataPassing)?
     
-    private var loadedImageList: [URL] = []
+    private var imageURLs: [URL] = []
+    private var loadedImageList: [URL: UIImage?] = [:]
     
     // MARK: Object lifecycle
     override func awakeFromNib() {
@@ -62,7 +63,6 @@ class ImageListViewController: UIViewController, ImageListDisplayLogic
         
         imagesCollectionView.delegate = self
         imagesCollectionView.dataSource = self
-        imagesCollectionView.prefetchDataSource = self
     }
     
     // MARK: Function
@@ -73,7 +73,7 @@ class ImageListViewController: UIViewController, ImageListDisplayLogic
     // MARK: ImageListDisplayLogic
     func displayGetImagesPicsum(viewModel: ImageList.FetchImageURL.ViewModel) {
         // Load a batch of images starting from the given index
-        self.loadedImageList = viewModel.urls.compactMap({ URL(string: $0)})
+        self.imageURLs = viewModel.urls.compactMap({ URL(string: $0)})
         imagesCollectionView.reloadData()
     }
     
@@ -84,22 +84,22 @@ class ImageListViewController: UIViewController, ImageListDisplayLogic
 }
 
 
-extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSourcePrefetching {
+extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return loadedImageList.count
+        return imageURLs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageViewCell", for: indexPath) as! ImageViewCell
-        cell.configureCell(imageUrl: loadedImageList[indexPath.row])
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        for indexPath in indexPaths {
-            let imageURL = loadedImageList[indexPath.item].absoluteString
-            ImageLoaderManager.shared.prefetchImageCacheUrl(imageURL: imageURL)
+        cell.delegate = self
+        if let imageDataCache = loadedImageList[imageURLs[indexPath.row]] ,
+            let imageCache = imageDataCache {
+            cell.setImageCache(image: imageCache)
+        } else {
+            cell.configureCell(imageUrl: imageURLs[indexPath.row])
         }
+        
+        return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -110,5 +110,11 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
         let width = self.view.bounds.width
         let height = CGFloat(300)
         return CGSize(width: width, height: height)
+    }
+}
+
+extension ImageListViewController: ImageViewCellDelegate {
+    func keepCacheImage(urlCache: URL,imageCache: UIImage?) {
+        loadedImageList[urlCache] = imageCache
     }
 }
