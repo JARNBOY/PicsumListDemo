@@ -15,9 +15,8 @@ import UIKit
 protocol ImageDetailBusinessLogic
 {
     func getImageDetail()
-    func getBlurImageDetail()
-    func getGrayScaleImageDetail()
-    func setViewFromSegment(segmentSelected: SegmentType)
+    func getBlurImage(blur: Double)
+    func getGrayScaleImage()
 }
 
 protocol ImageDetailDataStore
@@ -48,22 +47,33 @@ class ImageDetailInteractor: ImageDetailBusinessLogic, ImageDetailDataStore
         }
     }
     
-    func getBlurImageDetail() {
+    func getBlurImage(blur: Double) {
+        if let request = imageDetailInfo {
+            let id = request.idImageDetail
+            let blurLevel = Int(blur * 10)
+            let url = ImageLoaderManager.shared.getURLBlurImage(id: id, blur: blurLevel)
+            worker.loadImageBlur(url: url) {[weak self] imageBlur in
+                guard let self = self else { return }
+                self.presenter?.presentGetBlurImage(imageBlur: imageBlur)
+            } fail: { error in
+                print(error.localizedDescription)
+            }
+
+        }
         
     }
     
-    func getGrayScaleImageDetail() {
-        
-    }
-    
-    func setViewFromSegment(segmentSelected: SegmentType) {
-        switch segmentSelected {
-        case .normal:
-            break
-        case .blur:
-            getBlurImageDetail()
-        case .grayScale:
-            getGrayScaleImageDetail()
+    func getGrayScaleImage() {
+        if let request = imageDetailInfo {
+            let id = request.idImageDetail
+            let url = ImageLoaderManager.shared.getURLGrayScaleImage(id: id)
+            worker.loadImageGrayScale(url: url) {[weak self] imageGrayScale in
+                guard let self = self else { return }
+                self.presenter?.presentGetGrayScaleImage(imageGrayScale: imageGrayScale)
+            } fail: { error in
+                print(error.localizedDescription)
+            }
+
         }
     }
 }

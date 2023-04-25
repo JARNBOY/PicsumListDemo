@@ -30,8 +30,6 @@ enum ImageDetail
             var desc: String
         }
     }
-    
-    
 }
 
 enum SegmentType: Int {

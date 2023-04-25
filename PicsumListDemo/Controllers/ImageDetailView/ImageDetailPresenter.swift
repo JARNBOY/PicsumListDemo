@@ -15,6 +15,8 @@ import UIKit
 protocol ImageDetailPresentationLogic
 {
     func presentGetImageDetail(response: ImageDetail.GetDetailDisplay.Response)
+    func presentGetBlurImage(imageBlur: UIImage)
+    func presentGetGrayScaleImage(imageGrayScale: UIImage)
 }
 
 class ImageDetailPresenter: ImageDetailPresentationLogic
@@ -32,4 +34,13 @@ class ImageDetailPresenter: ImageDetailPresentationLogic
         let viewModel = ImageDetail.GetDetailDisplay.ViewModel(imageData: imageData, author: author, desc: desc)
         viewController?.displayGetImageDetail(viewModel: viewModel)
     }
+    
+    func presentGetBlurImage(imageBlur: UIImage) {
+        viewController?.displayGetBlurImage(imageBlur: imageBlur)
+    }
+    
+    func presentGetGrayScaleImage(imageGrayScale: UIImage) {
+        viewController?.displayGetGrayScaleImage(imageGrayScale: imageGrayScale)
+    }
+    
 }

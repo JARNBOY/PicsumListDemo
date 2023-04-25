@@ -15,6 +15,8 @@ import UIKit
 protocol ImageDetailDisplayLogic: AnyObject
 {
     func displayGetImageDetail(viewModel: ImageDetail.GetDetailDisplay.ViewModel)
+    func displayGetBlurImage(imageBlur: UIImage)
+    func displayGetGrayScaleImage(imageGrayScale: UIImage)
 }
 
 class ImageDetailViewController: UIViewController, ImageDetailDisplayLogic
@@ -30,9 +32,9 @@ class ImageDetailViewController: UIViewController, ImageDetailDisplayLogic
     var router: (NSObjectProtocol & ImageDetailRoutingLogic & ImageDetailDataPassing)?
     
     private var segmentTypeSelected: SegmentType = .normal
-    private var normalImage: Data? = nil
-    private var blurImage: Data? = nil
-    private var grayScaleImage: Data? = nil
+    private var normalImage: UIImage? = nil
+    private var blurImage: UIImage? = nil
+    private var grayScaleImage: UIImage? = nil
     
     // MARK: Object lifecycle
     override func awakeFromNib() {
@@ -60,7 +62,6 @@ class ImageDetailViewController: UIViewController, ImageDetailDisplayLogic
     {
         super.viewDidLoad()
         setUpView()
-        setUpSegmentView()
         getImageDetail()
     }
     
@@ -72,17 +73,26 @@ class ImageDetailViewController: UIViewController, ImageDetailDisplayLogic
     private func setUpSegmentView() {
         switch segmentTypeSelected {
         case .normal:
+            self.setImage(image: self.normalImage)
             blurSlider.isHidden = true
             break
         case .blur:
+            self.setImage(image: self.blurImage)
             blurSlider.isHidden = false
             break
         case .grayScale:
+            self.setImage(image: self.grayScaleImage)
             blurSlider.isHidden = true
             break
         }
         
         typeSegment.selectedSegmentIndex = segmentTypeSelected.rawValue
+    }
+    
+    private func setImage(image: UIImage?) {
+        if let img = image {
+            self.detailImageView.image = img
+        }
     }
     
     // MARK: Function
@@ -94,16 +104,38 @@ class ImageDetailViewController: UIViewController, ImageDetailDisplayLogic
     
     @IBAction func typeSegment_click(_ sender: UISegmentedControl) {
         segmentTypeSelected = sender.selectedSegmentIndex.toSegmentType()
+        if segmentTypeSelected == .blur && blurImage == nil {
+            self.interactor?.getBlurImage(blur: Double(blurSlider.value))
+        } else if segmentTypeSelected == .grayScale && grayScaleImage == nil {
+            self.interactor?.getGrayScaleImage()
+        }
         setUpSegmentView()
     }
     
     // MARK: ImageDetailDisplayLogic
     func displayGetImageDetail(viewModel: ImageDetail.GetDetailDisplay.ViewModel) {
         DispatchQueue.main.async {
-            self.normalImage = viewModel.imageData
-            self.detailImageView.image = UIImage(data: self.normalImage ?? Data())
+            self.normalImage = UIImage(data: viewModel.imageData)
             self.lblAuthor.text = viewModel.author
             self.descTextView.text = viewModel.desc
+            self.setUpSegmentView()
         }
     }
+    
+    func displayGetBlurImage(imageBlur: UIImage) {
+        DispatchQueue.main.async {
+            self.blurImage = imageBlur
+            self.setImage(image: self.blurImage)
+        }
+        
+    }
+    
+    func displayGetGrayScaleImage(imageGrayScale: UIImage) {
+        DispatchQueue.main.async {
+            self.grayScaleImage = imageGrayScale
+            self.setImage(image: self.grayScaleImage)
+        }
+        
+    }
+    
 }

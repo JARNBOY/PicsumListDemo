@@ -14,6 +14,8 @@ import UIKit
 
 protocol ImageDetailWorkerInterface {
     func loadImageDetailInfo(id: Int ,success: @escaping (DetailDisplayModel) -> Void ,fail: @escaping (Error) -> Void)
+    func loadImageBlur(url: String,success: @escaping (UIImage) -> Void ,fail: @escaping (Error) -> Void)
+    func loadImageGrayScale(url: String,success: @escaping (UIImage) -> Void ,fail: @escaping (Error) -> Void)
 }
 
 class ImageDetailWorker: ImageDetailWorkerInterface
@@ -30,6 +32,28 @@ class ImageDetailWorker: ImageDetailWorkerInterface
             switch result {
             case .success(let response):
                 success(response)
+            case .failure(let error):
+                fail(error)
+            }
+        }
+    }
+    
+    func loadImageBlur(url: String,success: @escaping (UIImage) -> Void ,fail: @escaping (Error) -> Void) {
+        ImageLoaderManager.shared.loadImage(from: url) { result in
+            switch result {
+            case .success(let imgBlurResult):
+                success(imgBlurResult)
+            case .failure(let error):
+                fail(error)
+            }
+        }
+    }
+    
+    func loadImageGrayScale(url: String,success: @escaping (UIImage) -> Void ,fail: @escaping (Error) -> Void) {
+        ImageLoaderManager.shared.loadImage(from: url) { result in
+            switch result {
+            case .success(let imgGrayScaleResult):
+                success(imgGrayScaleResult)
             case .failure(let error):
                 fail(error)
             }
