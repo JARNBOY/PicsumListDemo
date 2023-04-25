@@ -67,7 +67,7 @@ class ImageDetailViewController: UIViewController, ImageDetailDisplayLogic
     
     // MARK: View
     private func setUpView() {
-        
+        blurSlider.isContinuous = false
     }
     
     private func setUpSegmentView() {
@@ -112,6 +112,10 @@ class ImageDetailViewController: UIViewController, ImageDetailDisplayLogic
         setUpSegmentView()
     }
     
+    @IBAction func blurSlider_action(_ sender: UISlider) {
+        blurImage = nil
+        self.interactor?.getBlurImage(blur: Double(sender.value))
+    }
     // MARK: ImageDetailDisplayLogic
     func displayGetImageDetail(viewModel: ImageDetail.GetDetailDisplay.ViewModel) {
         DispatchQueue.main.async {
@@ -126,6 +130,7 @@ class ImageDetailViewController: UIViewController, ImageDetailDisplayLogic
         DispatchQueue.main.async {
             self.blurImage = imageBlur
             self.setImage(image: self.blurImage)
+            self.setUpSegmentView()
         }
         
     }
@@ -134,6 +139,7 @@ class ImageDetailViewController: UIViewController, ImageDetailDisplayLogic
         DispatchQueue.main.async {
             self.grayScaleImage = imageGrayScale
             self.setImage(image: self.grayScaleImage)
+            self.setUpSegmentView()
         }
         
     }

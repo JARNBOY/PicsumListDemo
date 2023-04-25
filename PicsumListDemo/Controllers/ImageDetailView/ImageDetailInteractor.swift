@@ -50,7 +50,12 @@ class ImageDetailInteractor: ImageDetailBusinessLogic, ImageDetailDataStore
     func getBlurImage(blur: Double) {
         if let request = imageDetailInfo {
             let id = request.idImageDetail
-            let blurLevel = Int(blur * 10)
+            var blurLevel = Int(blur * 10)
+            if blurLevel < 1 {
+                blurLevel = 1
+            } else if blur > 10 {
+                blurLevel = 10
+            }
             let url = ImageLoaderManager.shared.getURLBlurImage(id: id, blur: blurLevel)
             worker.loadImageBlur(url: url) {[weak self] imageBlur in
                 guard let self = self else { return }
