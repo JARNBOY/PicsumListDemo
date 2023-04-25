@@ -73,6 +73,9 @@ download_url : https://picsum.photos/id/0/5000/3333</string>
                                     <segment title="blur"/>
                                     <segment title="grayscale"/>
                                 </segments>
+                                <connections>
+                                    <action selector="typeSegment_click:" destination="Y6W-OH-hqX" eventType="valueChanged" id="IRm-VU-Nei"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>

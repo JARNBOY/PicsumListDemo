@@ -15,6 +15,9 @@ import UIKit
 protocol ImageDetailBusinessLogic
 {
     func getImageDetail()
+    func getBlurImageDetail()
+    func getGrayScaleImageDetail()
+    func setViewFromSegment(segmentSelected: SegmentType)
 }
 
 protocol ImageDetailDataStore
@@ -33,8 +36,7 @@ class ImageDetailInteractor: ImageDetailBusinessLogic, ImageDetailDataStore
     
     // MARK: ImageDetailBusinessLogic
     
-    func getImageDetail()
-    {
+    func getImageDetail() {
         if let request = imageDetailInfo {
             worker.loadImageDetailInfo(id: request.idImageDetail) {[weak self] detailDisplayModel in
                 guard let self = self else { return }
@@ -43,10 +45,25 @@ class ImageDetailInteractor: ImageDetailBusinessLogic, ImageDetailDataStore
             } fail: { error in
                 print(error.localizedDescription)
             }
-
-            
-            
         }
+    }
+    
+    func getBlurImageDetail() {
         
+    }
+    
+    func getGrayScaleImageDetail() {
+        
+    }
+    
+    func setViewFromSegment(segmentSelected: SegmentType) {
+        switch segmentSelected {
+        case .normal:
+            break
+        case .blur:
+            getBlurImageDetail()
+        case .grayScale:
+            getGrayScaleImageDetail()
+        }
     }
 }

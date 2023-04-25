@@ -33,3 +33,9 @@ enum ImageDetail
     
     
 }
+
+enum SegmentType: Int {
+    case normal = 0
+    case blur = 1
+    case grayScale = 2
+}

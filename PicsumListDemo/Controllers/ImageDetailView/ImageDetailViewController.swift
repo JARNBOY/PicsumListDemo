@@ -29,6 +29,11 @@ class ImageDetailViewController: UIViewController, ImageDetailDisplayLogic
     var interactor: ImageDetailBusinessLogic?
     var router: (NSObjectProtocol & ImageDetailRoutingLogic & ImageDetailDataPassing)?
     
+    private var segmentTypeSelected: SegmentType = .normal
+    private var normalImage: Data? = nil
+    private var blurImage: Data? = nil
+    private var grayScaleImage: Data? = nil
+    
     // MARK: Object lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -54,7 +59,30 @@ class ImageDetailViewController: UIViewController, ImageDetailDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        setUpView()
+        setUpSegmentView()
         getImageDetail()
+    }
+    
+    // MARK: View
+    private func setUpView() {
+        
+    }
+    
+    private func setUpSegmentView() {
+        switch segmentTypeSelected {
+        case .normal:
+            blurSlider.isHidden = true
+            break
+        case .blur:
+            blurSlider.isHidden = false
+            break
+        case .grayScale:
+            blurSlider.isHidden = true
+            break
+        }
+        
+        typeSegment.selectedSegmentIndex = segmentTypeSelected.rawValue
     }
     
     // MARK: Function
@@ -62,10 +90,18 @@ class ImageDetailViewController: UIViewController, ImageDetailDisplayLogic
         interactor?.getImageDetail()
     }
     
+    // MARK: Event UI Action
+    
+    @IBAction func typeSegment_click(_ sender: UISegmentedControl) {
+        segmentTypeSelected = sender.selectedSegmentIndex.toSegmentType()
+        setUpSegmentView()
+    }
+    
     // MARK: ImageDetailDisplayLogic
     func displayGetImageDetail(viewModel: ImageDetail.GetDetailDisplay.ViewModel) {
         DispatchQueue.main.async {
-            self.detailImageView.image = UIImage(data: viewModel.imageData)
+            self.normalImage = viewModel.imageData
+            self.detailImageView.image = UIImage(data: self.normalImage ?? Data())
             self.lblAuthor.text = viewModel.author
             self.descTextView.text = viewModel.desc
         }
