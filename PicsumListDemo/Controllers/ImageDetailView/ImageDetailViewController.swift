@@ -19,27 +19,24 @@ protocol ImageDetailDisplayLogic: AnyObject
 
 class ImageDetailViewController: UIViewController, ImageDetailDisplayLogic
 {
+    
+    @IBOutlet weak var detailImageView: UIImageView!
+    @IBOutlet weak var blurSlider: UISlider!
+    @IBOutlet weak var lblAuthor: UILabel!
+    @IBOutlet weak var descTextView: UITextView!
+    @IBOutlet weak var typeSegment: UISegmentedControl!
+    
     var interactor: ImageDetailBusinessLogic?
     var router: (NSObjectProtocol & ImageDetailRoutingLogic & ImageDetailDataPassing)?
     
     // MARK: Object lifecycle
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-    {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
-    }
-    
-    required init?(coder aDecoder: NSCoder)
-    {
-        super.init(coder: aDecoder)
+    override func awakeFromNib() {
+        super.awakeFromNib()
         setup()
     }
     
     // MARK: Setup
-    
-    private func setup()
-    {
+    private func setup() {
         let viewController = self
         let interactor = ImageDetailInteractor()
         let presenter = ImageDetailPresenter()

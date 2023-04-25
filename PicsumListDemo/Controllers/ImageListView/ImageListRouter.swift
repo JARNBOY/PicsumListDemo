@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol ImageListRoutingLogic
 {
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToImageDetail()
 }
 
 protocol ImageListDataPassing
@@ -29,32 +29,25 @@ class ImageListRouter: NSObject, ImageListRoutingLogic, ImageListDataPassing
     
     // MARK: Routing
     
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
-    //{
-    //  if let segue = segue {
-    //    let destinationVC = segue.destination as! SomewhereViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //  } else {
-    //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-    //  }
-    //}
+    func routeToImageDetail()
+    {
+        let storyboard = UIStoryboard(name: "ImageDetailStoryboard", bundle: nil)
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "ImageDetailViewController") as! ImageDetailViewController
+        var destinationDS = destinationVC.router!.dataStore!
+        passDataToImageDetail(source: dataStore!, destination: &destinationDS)
+        navigateToImageDetail(source: viewController!, destination: destinationVC)
+    }
     
     // MARK: Navigation
     
-    //func navigateToSomewhere(source: ImageListViewController, destination: SomewhereViewController)
-    //{
-    //  source.show(destination, sender: nil)
-    //}
+    func navigateToImageDetail(source: ImageListViewController, destination: ImageDetailViewController) {
+        destination.modalPresentationStyle = .fullScreen
+        source.navigationController?.pushViewController(destination, animated: true)
+    }
     
     // MARK: Passing data
     
-    //func passDataToSomewhere(source: ImageListDataStore, destination: inout SomewhereDataStore)
-    //{
-    //  destination.name = source.name
-    //}
+    func passDataToImageDetail(source: ImageListDataStore, destination: inout ImageDetailDataStore) {
+        destination.idImageDetail = source.idImageDetail
+    }
 }

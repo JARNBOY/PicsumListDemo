@@ -15,6 +15,7 @@ import UIKit
 protocol ImageListDisplayLogic: AnyObject
 {
     func displayGetImagesPicsum(viewModel: ImageList.FetchImageURL.ViewModel)
+    func displayOpenDetailImage()
 }
 
 class ImageListViewController: UIViewController, ImageListDisplayLogic
@@ -79,6 +80,10 @@ class ImageListViewController: UIViewController, ImageListDisplayLogic
         self.imageURLs += viewModel.urls.compactMap({ URL(string: $0)})
         imagesCollectionView.reloadData()
     }
+    
+    func displayOpenDetailImage() {
+        self.router?.routeToImageDetail()
+    }
 }
 
 
@@ -107,6 +112,10 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
         }
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.interactor?.openDetailImage(id: indexPath.row)
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

@@ -31,9 +31,9 @@ class ImageLoaderManager {
     }
     
     //MARK: TemplatURL Image
-    func generateURLImageLoad(id:Int) -> String {
+    func getURLSpecificImageLoad(id:Int ,widthImg: Int = widthImage, heightImg: Int = heightImage) -> String {
         let idPath = "/id/\(id)"
-        let widthHeightPath = "/\(widthImage)/\(heightImage)"
+        let widthHeightPath = "/\(widthImg)/\(heightImg)"
         return "\(rootImageURL)\(pathImageURL)\(idPath)\(widthHeightPath)"
     }
 }

@@ -28,7 +28,7 @@ class ImageListWorker: ImageListWorkerInterface
     
     func generateListURL(startIndex: Int, endIndex: Int, success:([String]) -> Void) {
         let listImageURL = (startIndex...endIndex).map {
-            ImageLoaderManager.shared.generateURLImageLoad(id: $0)
+            ImageLoaderManager.shared.getURLSpecificImageLoad(id: $0)
         }
         success(listImageURL)
     }

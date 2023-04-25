@@ -17,11 +17,12 @@ protocol ImageListBusinessLogic
     func getImagesPicsum()
     func setCurrentIndex(index: Int)
     func fetchMoreImagesPicsum()
+    func openDetailImage(id: Int)
 }
 
 protocol ImageListDataStore
 {
-    var imageURLDetail: String { get set }
+    var idImageDetail: Int { get set }
 }
 
 class ImageListInteractor: ImageListBusinessLogic, ImageListDataStore
@@ -30,7 +31,8 @@ class ImageListInteractor: ImageListBusinessLogic, ImageListDataStore
     var presenter: ImageListPresentationLogic?
     var worker: ImageListWorker = ImageListWorker()
     
-    var imageURLDetail: String = ""
+    var idImageDetail: Int = 0
+    
     private var currentIndex = 0
     private var startIndex = 0
     private var maxImageFetch = 25
@@ -60,6 +62,11 @@ class ImageListInteractor: ImageListBusinessLogic, ImageListDataStore
             self.currentIndex = self.startIndex + self.maxImageFetch
             self.getImagesPicsum()
         }
+    }
+    
+    func openDetailImage(id: Int) {
+        idImageDetail = id
+        presenter?.presentOpenDetailImage()
     }
     
 }

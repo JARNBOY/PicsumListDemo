@@ -15,6 +15,7 @@ import UIKit
 protocol ImageListPresentationLogic
 {
     func presentGetImagesPicsum(response: ImageList.FetchImageURL.Response)
+    func presentOpenDetailImage()
 }
 
 class ImageListPresenter: ImageListPresentationLogic
@@ -26,5 +27,9 @@ class ImageListPresenter: ImageListPresentationLogic
     func presentGetImagesPicsum(response: ImageList.FetchImageURL.Response) {
         let viewModel = ImageList.FetchImageURL.ViewModel(startIndex: response.startIndex, endIndex: response.endIndex, urls: response.urls)
         viewController?.displayGetImagesPicsum(viewModel: viewModel)
+    }
+    
+    func presentOpenDetailImage() {
+        viewController?.displayOpenDetailImage()
     }
 }

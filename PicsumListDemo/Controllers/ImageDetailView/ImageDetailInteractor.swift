@@ -19,14 +19,18 @@ protocol ImageDetailBusinessLogic
 
 protocol ImageDetailDataStore
 {
-    //var name: String { get set }
+    var idImageDetail: Int? { get set }
 }
 
 class ImageDetailInteractor: ImageDetailBusinessLogic, ImageDetailDataStore
 {
+    
+    
     var presenter: ImageDetailPresentationLogic?
     var worker: ImageDetailWorker?
     //var name: String = ""
+    
+    var idImageDetail: Int? = nil
     
     // MARK: Do something
     
