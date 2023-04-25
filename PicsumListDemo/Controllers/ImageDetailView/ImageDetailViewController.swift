@@ -68,6 +68,7 @@ class ImageDetailViewController: UIViewController, ImageDetailDisplayLogic
     // MARK: View
     private func setUpView() {
         blurSlider.isContinuous = false
+        typeSegment.selectedSegmentIndex = segmentTypeSelected.rawValue
     }
     
     private func setUpSegmentView() {
@@ -86,7 +87,7 @@ class ImageDetailViewController: UIViewController, ImageDetailDisplayLogic
             break
         }
         
-        typeSegment.selectedSegmentIndex = segmentTypeSelected.rawValue
+        
     }
     
     private func setImage(image: UIImage?) {
