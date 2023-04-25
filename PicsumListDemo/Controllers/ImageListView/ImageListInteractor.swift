@@ -33,7 +33,7 @@ class ImageListInteractor: ImageListBusinessLogic, ImageListDataStore
     var imageURLDetail: String = ""
     private var currentIndex = 0
     private var startIndex = 0
-    private var maxImageFetch = 20
+    private var maxImageFetch = 25
     
     // MARK: ImageListBusinessLogic
     

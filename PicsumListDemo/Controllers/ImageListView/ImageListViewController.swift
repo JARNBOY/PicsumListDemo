@@ -25,7 +25,7 @@ class ImageListViewController: UIViewController, ImageListDisplayLogic
     var router: (NSObjectProtocol & ImageListRoutingLogic & ImageListDataPassing)?
     
     private var imageURLs: [URL] = []
-    private var loadedImageList: [URL: UIImage?] = [:]
+    private var loadedImageList: [URL: Data?] = [:]
     
     // MARK: Object lifecycle
     override func awakeFromNib() {
@@ -69,6 +69,10 @@ class ImageListViewController: UIViewController, ImageListDisplayLogic
         interactor?.getImagesPicsum()
     }
     
+    private func clearMemoryOfOldCacheImage() {
+        self.loadedImageList = [:]
+    }
+    
     // MARK: ImageListDisplayLogic
     func displayGetImagesPicsum(viewModel: ImageList.FetchImageURL.ViewModel) {
         // Load a batch of images starting from the given index
@@ -86,15 +90,19 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageViewCell", for: indexPath) as! ImageViewCell
         cell.delegate = self
+        self.interactor?.setCurrentIndex(index: indexPath.row)
+        
         if let imageDataCache = loadedImageList[imageURLs[indexPath.row]] ,
-            let imageCache = imageDataCache {
+            let dataImg = imageDataCache,
+            let imageCache = UIImage(data: dataImg) {
             cell.setImageCache(image: imageCache)
         } else {
             cell.configureCell(imageUrl: imageURLs[indexPath.row])
         }
-        self.interactor?.setCurrentIndex(index: indexPath.row)
         
-        if indexPath.row == imageURLs.count - 1 {
+        let isLastRow = indexPath.row == imageURLs.count - 1
+        if isLastRow {
+            self.clearMemoryOfOldCacheImage()
             self.interactor?.fetchMoreImagesPicsum()
         }
         
@@ -110,21 +118,13 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
         let height = CGFloat(300)
         return CGSize(width: width, height: height)
     }
-    
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        // Check if the user has scrolled past the halfway point of the collection view
-//        let offset = scrollView.contentOffset.y + scrollView.bounds.size.height
-//        let contentHeight = scrollView.contentSize.height
-//        print("\(offset) : \(contentHeight)")
-//        if offset > contentHeight / 2 {
-//            // Load the next batch of images
-//            self.interactor?.fetchMoreImagesPicsum()
-//        }
-//    }
 }
 
 extension ImageListViewController: ImageViewCellDelegate {
     func keepCacheImage(urlCache: URL,imageCache: UIImage?) {
-        loadedImageList[urlCache] = imageCache
+        if let imgDataCache = imageCache?.pngData() {
+            loadedImageList[urlCache] = imgDataCache
+        }
+        
     }
 }
