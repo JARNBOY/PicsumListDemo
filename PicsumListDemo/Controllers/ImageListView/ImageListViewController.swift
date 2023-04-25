@@ -15,7 +15,6 @@ import UIKit
 protocol ImageListDisplayLogic: AnyObject
 {
     func displayGetImagesPicsum(viewModel: ImageList.FetchImageURL.ViewModel)
-    func displayLoadImage(viewModel: ImageList.GetImage.ViewModel)
 }
 
 class ImageListViewController: UIViewController, ImageListDisplayLogic
@@ -67,19 +66,14 @@ class ImageListViewController: UIViewController, ImageListDisplayLogic
     
     // MARK: Function
     func getImagesPicsum() {
-        interactor?.fetchImagesPicsum()
+        interactor?.getImagesPicsum()
     }
     
     // MARK: ImageListDisplayLogic
     func displayGetImagesPicsum(viewModel: ImageList.FetchImageURL.ViewModel) {
         // Load a batch of images starting from the given index
-        self.imageURLs = viewModel.urls.compactMap({ URL(string: $0)})
+        self.imageURLs += viewModel.urls.compactMap({ URL(string: $0)})
         imagesCollectionView.reloadData()
-    }
-    
-    func displayLoadImage(viewModel: ImageList.GetImage.ViewModel) {
-        let indexPath = IndexPath(item: viewModel.rowUpdate, section: 0)
-        imagesCollectionView.reloadItems(at: [indexPath])
     }
 }
 
@@ -98,6 +92,11 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
         } else {
             cell.configureCell(imageUrl: imageURLs[indexPath.row])
         }
+        self.interactor?.setCurrentIndex(index: indexPath.row)
+        
+        if indexPath.row == imageURLs.count - 1 {
+            self.interactor?.fetchMoreImagesPicsum()
+        }
         
         return cell
     }
@@ -111,6 +110,17 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
         let height = CGFloat(300)
         return CGSize(width: width, height: height)
     }
+    
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        // Check if the user has scrolled past the halfway point of the collection view
+//        let offset = scrollView.contentOffset.y + scrollView.bounds.size.height
+//        let contentHeight = scrollView.contentSize.height
+//        print("\(offset) : \(contentHeight)")
+//        if offset > contentHeight / 2 {
+//            // Load the next batch of images
+//            self.interactor?.fetchMoreImagesPicsum()
+//        }
+//    }
 }
 
 extension ImageListViewController: ImageViewCellDelegate {

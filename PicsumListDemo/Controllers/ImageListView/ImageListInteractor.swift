@@ -14,8 +14,9 @@ import UIKit
 
 protocol ImageListBusinessLogic
 {
-    func fetchImagesPicsum()
-    func loadImage(url: String ,row: Int)
+    func getImagesPicsum()
+    func setCurrentIndex(index: Int)
+    func fetchMoreImagesPicsum()
 }
 
 protocol ImageListDataStore
@@ -25,30 +26,40 @@ protocol ImageListDataStore
 
 class ImageListInteractor: ImageListBusinessLogic, ImageListDataStore
 {
+    
     var presenter: ImageListPresentationLogic?
-    var worker: ImageListWorker = ImageListWorker(service: ImageListService())
+    var worker: ImageListWorker = ImageListWorker()
     
     var imageURLDetail: String = ""
     private var currentIndex = 0
-    private var maxImageFetch = 300
+    private var startIndex = 0
+    private var maxImageFetch = 20
     
     // MARK: ImageListBusinessLogic
     
-    func fetchImagesPicsum() {
-        let startIndex = self.currentIndex
-        let endIndex = startIndex + self.maxImageFetch
-        worker.generateListURL(startIndex: startIndex, endIndex: endIndex) { imageUrls in
+    func getImagesPicsum() {
+        self.startIndex = self.currentIndex
+        let maxImage = self.startIndex + self.maxImageFetch
+        let endIndex = maxImage - 1
+        worker.generateListURL(startIndex: self.startIndex, endIndex: endIndex) { imageUrls in
+            print(imageUrls)
             let response = ImageList.FetchImageURL.Response(startIndex: startIndex, endIndex: endIndex, urls: imageUrls)
             presenter?.presentGetImagesPicsum(response: response)
         }
     }
     
-    func loadImage(url: String ,row: Int) {
-        worker.loadImage(url: url) { img in
-            self.presenter?.presentLoadImage(response: ImageList.GetImage.Response(rowUpdate: row, img: img))
-        } fail: { err in
-            self.presenter?.presentLoadImage(response: ImageList.GetImage.Response(rowUpdate: row, img: nil))
-        }
-
+    func setCurrentIndex(index: Int) {
+        self.currentIndex = index
+        print("index : \(self.currentIndex)")
     }
+    
+    func fetchMoreImagesPicsum() {
+        let maxImage = self.startIndex + self.maxImageFetch
+        let endIndex = maxImage - 1
+        if self.currentIndex >= endIndex {
+            self.currentIndex = self.startIndex + self.maxImageFetch
+            self.getImagesPicsum()
+        }
+    }
+    
 }
