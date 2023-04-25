@@ -17,12 +17,12 @@ protocol ImageListBusinessLogic
     func getImagesPicsum()
     func setCurrentIndex(index: Int)
     func fetchMoreImagesPicsum()
-    func openDetailImage(id: Int)
+    func openDetailImage(imageDetailInfo: ImageDetailInfo)
 }
 
 protocol ImageListDataStore
 {
-    var idImageDetail: Int { get set }
+    var imageDetailInfo: ImageDetailInfo? { get set }
 }
 
 class ImageListInteractor: ImageListBusinessLogic, ImageListDataStore
@@ -31,7 +31,7 @@ class ImageListInteractor: ImageListBusinessLogic, ImageListDataStore
     var presenter: ImageListPresentationLogic?
     var worker: ImageListWorker = ImageListWorker()
     
-    var idImageDetail: Int = 0
+    var imageDetailInfo: ImageDetailInfo? = nil
     
     private var currentIndex = 0
     private var startIndex = 0
@@ -64,8 +64,8 @@ class ImageListInteractor: ImageListBusinessLogic, ImageListDataStore
         }
     }
     
-    func openDetailImage(id: Int) {
-        idImageDetail = id
+    func openDetailImage(imageDetailInfo: ImageDetailInfo) {
+        self.imageDetailInfo = imageDetailInfo
         presenter?.presentOpenDetailImage()
     }
     

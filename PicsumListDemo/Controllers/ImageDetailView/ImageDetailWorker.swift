@@ -12,9 +12,19 @@
 
 import UIKit
 
+protocol ImageDetailWorkerInterface {
+    func loadImageDetail()
+}
+
 class ImageDetailWorker
 {
-    func doSomeWork()
-    {
+    var service: ImageDetailService!
+    
+    init(service: ImageDetailService) {
+        self.service = service
+    }
+    
+    func loadImageDetail() {
+        
     }
 }

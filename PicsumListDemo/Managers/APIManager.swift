@@ -1,0 +1,59 @@
+//
+//  APIManager.swift
+//  PicsumListDemo
+//
+//  Created by Papon Supamongkonchai on 25/4/2566 BE.
+//
+
+import Foundation
+
+enum HTTPMethod: String {
+    case get = "GET"
+    case post = "POST"
+    case put = "PUT"
+}
+
+class APIManager {
+    static let shared = APIManager()
+    
+    func request(endpoint: String, method: HTTPMethod , headers: [String: String]?, body: Data?, completion: @escaping (Data?, Error?) -> Void) {
+        
+        guard let url = URL(string: endpoint) else {
+            completion(nil, NSError(domain: "Invalid endpoint URL", code: 0, userInfo: nil))
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = method.rawValue
+        
+        if let headers = headers {
+            for (key, value) in headers {
+                request.addValue(value, forHTTPHeaderField: key)
+            }
+        }
+        
+        if let body = body {
+            request.httpBody = body
+        }
+        
+        let session = URLSession.shared
+        
+        let task = session.dataTask(with: request) { data, response, error in
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(nil, NSError(domain: "Invalid response", code: 0, userInfo: nil))
+                return
+            }
+            
+            if error != nil {
+                completion(nil, error)
+            } else if httpResponse.statusCode >= 200 && httpResponse.statusCode < 300 {
+                completion(data, nil)
+            } else {
+                completion(nil, NSError(domain: "API request failed with status code \(httpResponse.statusCode)", code: httpResponse.statusCode, userInfo: nil))
+            }
+        }
+        
+        task.resume()
+    }
+}

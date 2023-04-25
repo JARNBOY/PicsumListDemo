@@ -25,8 +25,8 @@ class ImageListViewController: UIViewController, ImageListDisplayLogic
     var interactor: ImageListBusinessLogic?
     var router: (NSObjectProtocol & ImageListRoutingLogic & ImageListDataPassing)?
     
-    private var imageURLs: [URL] = []
-    private var loadedImageList: [URL: Data?] = [:]
+    private var imageURLs: [String] = []
+    private var loadedImageList: [String: Data?] = [:]
     
     // MARK: Object lifecycle
     override func awakeFromNib() {
@@ -77,7 +77,7 @@ class ImageListViewController: UIViewController, ImageListDisplayLogic
     // MARK: ImageListDisplayLogic
     func displayGetImagesPicsum(viewModel: ImageList.FetchImageURL.ViewModel) {
         // Load a batch of images starting from the given index
-        self.imageURLs += viewModel.urls.compactMap({ URL(string: $0)})
+        self.imageURLs += viewModel.urls
         imagesCollectionView.reloadData()
     }
     
@@ -115,7 +115,12 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.interactor?.openDetailImage(id: indexPath.row)
+        let id = indexPath.row
+        if let imageDataCache = loadedImageList[imageURLs[indexPath.row]] ,
+           let data = imageDataCache {
+            self.interactor?.openDetailImage(imageDetailInfo: ImageDetailInfo(idImageDetail: id, dataImageDetail: data))
+        }
+        
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -130,7 +135,7 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
 }
 
 extension ImageListViewController: ImageViewCellDelegate {
-    func keepCacheImage(urlCache: URL,imageCache: UIImage?) {
+    func keepCacheImage(urlCache: String,imageCache: UIImage?) {
         if let imgDataCache = imageCache?.pngData() {
             loadedImageList[urlCache] = imgDataCache
         }

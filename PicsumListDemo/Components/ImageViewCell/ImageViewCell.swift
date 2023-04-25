@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ImageViewCellDelegate {
-    func keepCacheImage(urlCache: URL,imageCache: UIImage?)
+    func keepCacheImage(urlCache: String,imageCache: UIImage?)
 }
 
 class ImageViewCell: UICollectionViewCell {
@@ -26,7 +26,7 @@ class ImageViewCell: UICollectionViewCell {
         print("load image cache")
     }
     
-    func configureCell(imageUrl: URL) {
+    func configureCell(imageUrl: String) {
         ImageLoaderManager.shared.loadImage(from: imageUrl) {[weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {

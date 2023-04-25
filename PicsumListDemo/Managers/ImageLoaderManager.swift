@@ -11,12 +11,8 @@ class ImageLoaderManager {
     static let shared = ImageLoaderManager()
     
     //MARK: LoadImage
-    func loadImage(from url: URL?, completion: @escaping (Result<UIImage, Error>) -> Void) {
-        guard let url = url else {
-            completion(.failure(NSError(domain: "Url is empty", code: 0)))
-            return
-        }
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+    func loadImage(from url: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
+        APIManager.shared.request(endpoint: url, method: .get, headers: nil, body: nil) { data, error in
             guard let data = data, error == nil else {
                 completion(.failure(error ?? NSError(domain: "Unknown error", code: 0)))
                 return
@@ -27,7 +23,6 @@ class ImageLoaderManager {
             }
             completion(.success(image))
         }
-        task.resume()
     }
     
     //MARK: TemplatURL Image

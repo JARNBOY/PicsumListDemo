@@ -25,8 +25,10 @@
 		FB18BFDE29F6D920004DC6EB /* ImageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB18BFDD29F6D920004DC6EB /* ImageViewCell.xib */; };
 		FB18BFE029F6DA79004DC6EB /* ImageLoaderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB18BFDF29F6DA79004DC6EB /* ImageLoaderManager.swift */; };
 		FB18BFE329F6DCCD004DC6EB /* ImageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB18BFE229F6DCCD004DC6EB /* ImageConstants.swift */; };
-		FB18BFE529F6EEAC004DC6EB /* ImageListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB18BFE429F6EEAC004DC6EB /* ImageListService.swift */; };
 		FB18BFE829F6F6B6004DC6EB /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB18BFE729F6F6B6004DC6EB /* CollectionViewCell.swift */; };
+		FB6D028A29F8251F0095A983 /* ImageDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6D028929F8251F0095A983 /* ImageDetailService.swift */; };
+		FB6D028C29F826D40095A983 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6D028B29F826D40095A983 /* APIManager.swift */; };
+		FB6D028F29F82CA30095A983 /* ImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6D028E29F82CA30095A983 /* ImageDetail.swift */; };
 		FBFEE19629F6C91200EFAB20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFEE19529F6C91200EFAB20 /* AppDelegate.swift */; };
 		FBFEE19829F6C91200EFAB20 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFEE19729F6C91200EFAB20 /* SceneDelegate.swift */; };
 		FBFEE19F29F6C91400EFAB20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBFEE19E29F6C91400EFAB20 /* Assets.xcassets */; };
@@ -52,8 +54,10 @@
 		FB18BFDD29F6D920004DC6EB /* ImageViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageViewCell.xib; sourceTree = "<group>"; };
 		FB18BFDF29F6DA79004DC6EB /* ImageLoaderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderManager.swift; sourceTree = "<group>"; };
 		FB18BFE229F6DCCD004DC6EB /* ImageConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageConstants.swift; sourceTree = "<group>"; };
-		FB18BFE429F6EEAC004DC6EB /* ImageListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListService.swift; sourceTree = "<group>"; };
 		FB18BFE729F6F6B6004DC6EB /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		FB6D028929F8251F0095A983 /* ImageDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailService.swift; sourceTree = "<group>"; };
+		FB6D028B29F826D40095A983 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		FB6D028E29F82CA30095A983 /* ImageDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetail.swift; sourceTree = "<group>"; };
 		FBFEE19229F6C91200EFAB20 /* PicsumListDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicsumListDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBFEE19529F6C91200EFAB20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBFEE19729F6C91200EFAB20 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				FB18BFDF29F6DA79004DC6EB /* ImageLoaderManager.swift */,
+				FB6D028B29F826D40095A983 /* APIManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -100,7 +105,6 @@
 				FB18BFBF29F6CD93004DC6EB /* ImageListModels.swift */,
 				FB18BFC029F6CD93004DC6EB /* ImageListViewController.swift */,
 				FB18BFC129F6CD93004DC6EB /* ImageListInteractor.swift */,
-				FB18BFE429F6EEAC004DC6EB /* ImageListService.swift */,
 			);
 			path = ImageListView;
 			sourceTree = "<group>";
@@ -115,6 +119,7 @@
 				FB18BFCC29F6CDDA004DC6EB /* ImageDetailModels.swift */,
 				FB18BFCD29F6CDDA004DC6EB /* ImageDetailViewController.swift */,
 				FB18BFCE29F6CDDA004DC6EB /* ImageDetailInteractor.swift */,
+				FB6D028929F8251F0095A983 /* ImageDetailService.swift */,
 			);
 			path = ImageDetailView;
 			sourceTree = "<group>";
@@ -152,6 +157,14 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		FB6D028D29F82C8B0095A983 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FB6D028E29F82CA30095A983 /* ImageDetail.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		FBFEE18929F6C91200EFAB20 = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +184,7 @@
 		FBFEE19429F6C91200EFAB20 /* PicsumListDemo */ = {
 			isa = PBXGroup;
 			children = (
+				FB6D028D29F82C8B0095A983 /* Models */,
 				FB18BFE629F6F6A5004DC6EB /* Extension */,
 				FB18BFE129F6DCB1004DC6EB /* ConfigConstants */,
 				FB18BFB929F6CCA9004DC6EB /* Managers */,
@@ -263,13 +277,15 @@
 				FB18BFD429F6CDDA004DC6EB /* ImageDetailInteractor.swift in Sources */,
 				FBFEE19629F6C91200EFAB20 /* AppDelegate.swift in Sources */,
 				FB18BFC329F6CD93004DC6EB /* ImageListWorker.swift in Sources */,
-				FB18BFE529F6EEAC004DC6EB /* ImageListService.swift in Sources */,
+				FB6D028A29F8251F0095A983 /* ImageDetailService.swift in Sources */,
+				FB6D028F29F82CA30095A983 /* ImageDetail.swift in Sources */,
 				FB18BFE829F6F6B6004DC6EB /* CollectionViewCell.swift in Sources */,
 				FB18BFE329F6DCCD004DC6EB /* ImageConstants.swift in Sources */,
 				FB18BFC229F6CD93004DC6EB /* ImageListPresenter.swift in Sources */,
 				FB18BFD229F6CDDA004DC6EB /* ImageDetailModels.swift in Sources */,
 				FB18BFC729F6CD93004DC6EB /* ImageListInteractor.swift in Sources */,
 				FB18BFE029F6DA79004DC6EB /* ImageLoaderManager.swift in Sources */,
+				FB6D028C29F826D40095A983 /* APIManager.swift in Sources */,
 				FB18BFC429F6CD93004DC6EB /* ImageListRouter.swift in Sources */,
 				FB18BFD329F6CDDA004DC6EB /* ImageDetailViewController.swift in Sources */,
 				FBFEE19829F6C91200EFAB20 /* SceneDelegate.swift in Sources */,

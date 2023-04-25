@@ -48,6 +48,6 @@ class ImageListRouter: NSObject, ImageListRoutingLogic, ImageListDataPassing
     // MARK: Passing data
     
     func passDataToImageDetail(source: ImageListDataStore, destination: inout ImageDetailDataStore) {
-        destination.idImageDetail = source.idImageDetail
+        destination.imageDetailInfo = source.imageDetailInfo
     }
 }

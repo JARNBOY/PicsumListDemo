@@ -19,7 +19,7 @@ protocol ImageDetailBusinessLogic
 
 protocol ImageDetailDataStore
 {
-    var idImageDetail: Int? { get set }
+    var imageDetailInfo: ImageDetailInfo? { get set }
 }
 
 class ImageDetailInteractor: ImageDetailBusinessLogic, ImageDetailDataStore
@@ -27,18 +27,15 @@ class ImageDetailInteractor: ImageDetailBusinessLogic, ImageDetailDataStore
     
     
     var presenter: ImageDetailPresentationLogic?
-    var worker: ImageDetailWorker?
-    //var name: String = ""
+    var worker: ImageDetailWorker = ImageDetailWorker(service: ImageDetailService())
     
-    var idImageDetail: Int? = nil
+    var imageDetailInfo: ImageDetailInfo? = nil
     
     // MARK: Do something
     
     func doSomething(request: ImageDetail.Something.Request)
     {
-        worker = ImageDetailWorker()
-        worker?.doSomeWork()
-        
+        worker.loadImageDetail()
         let response = ImageDetail.Something.Response()
         presenter?.presentSomething(response: response)
     }
