@@ -58,6 +58,13 @@ class ImageListViewController: UIViewController, ImageListDisplayLogic
     
     //MARK: View
     private func setupView() {
+        //set Navigation Bar
+        self.navigationItem.title = "PICSUM DEMO"
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.largeTitleDisplayMode = .always
+        self.navigationController?.navigationBar.barTintColor = UIColor.lightGray
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        
         let nib = UINib(nibName: "ImageViewCell", bundle: nil)
         imagesCollectionView.register(nib, forCellWithReuseIdentifier: "ImageViewCell")
         
@@ -140,6 +147,5 @@ extension ImageListViewController: ImageViewCellDelegate {
         if let imgDataCache = imageCache?.pngData() {
             loadedImageList[urlCache] = imgDataCache
         }
-        
     }
 }
