@@ -64,8 +64,10 @@ class ImageDetailViewController: UIViewController, ImageDetailDisplayLogic
     
     // MARK: ImageDetailDisplayLogic
     func displayGetImageDetail(viewModel: ImageDetail.GetDetailDisplay.ViewModel) {
-        self.detailImageView.image = UIImage(data: viewModel.imageData)
-        self.lblAuthor.text = viewModel.author
-        self.descTextView.text = viewModel.desc
+        DispatchQueue.main.async {
+            self.detailImageView.image = UIImage(data: viewModel.imageData)
+            self.lblAuthor.text = viewModel.author
+            self.descTextView.text = viewModel.desc
+        }
     }
 }
