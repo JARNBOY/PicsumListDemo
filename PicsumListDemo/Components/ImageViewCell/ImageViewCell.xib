@@ -19,13 +19,16 @@
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QrW-Sj-6Bi">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="300"/>
+                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="300" id="6EY-Ct-tdZ"/>
+                            <constraint firstAttribute="width" constant="200" id="G47-lP-aDh"/>
+                        </constraints>
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="QrW-Sj-6Bi" firstAttribute="top" secondItem="PPV-if-G8Z" secondAttribute="top" id="Ahf-FM-UGp"/>
-                    <constraint firstAttribute="trailing" secondItem="QrW-Sj-6Bi" secondAttribute="trailing" id="FZ0-Ad-Z7X"/>
-                    <constraint firstItem="QrW-Sj-6Bi" firstAttribute="leading" secondItem="PPV-if-G8Z" secondAttribute="leading" id="WVG-N9-ciN"/>
-                    <constraint firstAttribute="bottom" secondItem="QrW-Sj-6Bi" secondAttribute="bottom" id="hQS-dq-XWD"/>
+                    <constraint firstItem="QrW-Sj-6Bi" firstAttribute="centerY" secondItem="PPV-if-G8Z" secondAttribute="centerY" id="Shk-EF-dXK"/>
+                    <constraint firstItem="QrW-Sj-6Bi" firstAttribute="centerX" secondItem="PPV-if-G8Z" secondAttribute="centerX" id="kuh-uU-rVq"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="253" height="76"/>

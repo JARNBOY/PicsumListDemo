@@ -20,7 +20,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uEh-uX-CGM">
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="i0t-0g-jPa">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="i0t-0g-jPa">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -30,6 +30,7 @@
                                 <connections>
                                     <outlet property="dataSource" destination="Y6W-OH-hqX" id="X6Q-uc-MZw"/>
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="uud-KX-NWY"/>
+                                    <outlet property="prefetchDataSource" destination="Y6W-OH-hqX" id="RTt-P6-tOC"/>
                                 </connections>
                             </collectionView>
                         </subviews>

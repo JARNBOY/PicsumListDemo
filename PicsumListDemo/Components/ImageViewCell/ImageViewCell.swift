@@ -16,25 +16,26 @@ class ImageViewCell: UICollectionViewCell {
         imgV.image = nil
     }
     
-    func setImageCache(img: UIImage?) {
-        if let img = img {
-            self.imgV.image = img
-            print("load image cache")
-        }
-    }
-    
     func configureCell(imageUrl: URL) {
-        ImageLoaderManager.shared.loadImage(from: imageUrl) { result in
-            switch result {
-            case .success(let img):
-                DispatchQueue.main.async {
-                    self.imgV.image = img
-                    print("load image success")
+        let imgCacheData = ImageCache.shared.image(forKey: imageUrl.absoluteString)
+        if let imageCache = imgCacheData {
+            self.imgV.image = imageCache
+            print("load image cache")
+        } else {
+            ImageLoaderManager.shared.loadImage(from: imageUrl) {[weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let img):
+                    DispatchQueue.main.async {
+                        self.imgV.image = img
+                        print("load image success")
+                    }
+                case .failure(_):
+                    print("load image fail")
                 }
-            case .failure(_):
-                print("load image fail")
             }
         }
+        
         
     }
 }

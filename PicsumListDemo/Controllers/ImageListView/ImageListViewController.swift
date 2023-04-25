@@ -57,13 +57,12 @@ class ImageListViewController: UIViewController, ImageListDisplayLogic
     
     //MARK: View
     private func setupView() {
-        imagesCollectionView.delegate = self
-        imagesCollectionView.dataSource = self
-        imagesCollectionView.prefetchDataSource = self
-        
         let nib = UINib(nibName: "ImageViewCell", bundle: nil)
         imagesCollectionView.register(nib, forCellWithReuseIdentifier: "ImageViewCell")
         
+        imagesCollectionView.delegate = self
+        imagesCollectionView.dataSource = self
+        imagesCollectionView.prefetchDataSource = self
     }
     
     // MARK: Function
@@ -92,23 +91,17 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageViewCell", for: indexPath) as! ImageViewCell
-        if let imageData = ImageLoaderManager.shared.imageDataCache[loadedImageList[indexPath.row]] {
-            cell.setImageCache(img: UIImage(data: imageData))
-        } else {
-            cell.configureCell(imageUrl: loadedImageList[indexPath.row])
-        }
-        
+        cell.configureCell(imageUrl: loadedImageList[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        // Prefetch image data for the specified indexPaths
-        let prefetchUrls = indexPaths.compactMap { indexPath in
-            return loadedImageList[indexPath.row]
+        for indexPath in indexPaths {
+            let imageURL = loadedImageList[indexPath.item].absoluteString
+            ImageLoaderManager.shared.prefetchImageCacheUrl(imageURL: imageURL)
         }
-        ImageLoaderManager.shared.prefetchImageUrls(prefetchUrls)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         cell.fadeAnimation()
     }
