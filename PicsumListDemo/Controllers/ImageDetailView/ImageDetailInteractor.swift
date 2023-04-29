@@ -14,9 +14,9 @@ import UIKit
 
 protocol ImageDetailBusinessLogic
 {
-    func getImageDetail()
-    func getBlurImage(blur: Double)
-    func getGrayScaleImage()
+    func getImageDetail() async
+    func getBlurImage(blur: Double) async
+    func getGrayScaleImage() async
 }
 
 protocol ImageDetailDataStore
@@ -35,19 +35,19 @@ class ImageDetailInteractor: ImageDetailBusinessLogic, ImageDetailDataStore
     
     // MARK: ImageDetailBusinessLogic
     
-    func getImageDetail() {
+    func getImageDetail() async {
         if let request = imageDetailInfo {
-            worker.loadImageDetailInfo(id: request.idImageDetail) {[weak self] detailDisplayModel in
-                guard let self = self else { return }
+            do {
+                let detailDisplayModel = try await worker.loadImageDetailInfo(id: request.idImageDetail)
                 let response = ImageDetail.GetDetailDisplay.Response(imageData: request.dataImageDetail, displayModel: detailDisplayModel)
                 self.presenter?.presentGetImageDetail(response: response)
-            } fail: { error in
-                print(error.localizedDescription)
+            } catch {
+                print(error.localizedDescription) // Output: "My error message"
             }
         }
     }
     
-    func getBlurImage(blur: Double) {
+    func getBlurImage(blur: Double) async {
         if let request = imageDetailInfo {
             let id = request.idImageDetail
             var blurLevel = Int(blur * 10)
@@ -57,28 +57,27 @@ class ImageDetailInteractor: ImageDetailBusinessLogic, ImageDetailDataStore
                 blurLevel = 10
             }
             let url = ImageLoaderManager.shared.getURLBlurImage(id: id, blur: blurLevel)
-            worker.loadImageBlur(url: url) {[weak self] imageBlur in
-                guard let self = self else { return }
+            do {
+                let imageBlur = try await worker.loadImageBlur(url: url)
                 self.presenter?.presentGetBlurImage(imageBlur: imageBlur)
-            } fail: { error in
-                print(error.localizedDescription)
+            } catch {
+                print(error.localizedDescription) // Output: "My error message"
             }
 
         }
         
     }
     
-    func getGrayScaleImage() {
+    func getGrayScaleImage() async {
         if let request = imageDetailInfo {
             let id = request.idImageDetail
             let url = ImageLoaderManager.shared.getURLGrayScaleImage(id: id)
-            worker.loadImageGrayScale(url: url) {[weak self] imageGrayScale in
-                guard let self = self else { return }
+            do {
+                let imageGrayScale = try await worker.loadImageGrayScale(url: url)
                 self.presenter?.presentGetGrayScaleImage(imageGrayScale: imageGrayScale)
-            } fail: { error in
-                print(error.localizedDescription)
+            } catch {
+                print(error.localizedDescription) // Output: "My error message"
             }
-
         }
     }
 }

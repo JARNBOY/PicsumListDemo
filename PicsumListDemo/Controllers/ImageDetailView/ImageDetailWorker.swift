@@ -13,9 +13,9 @@
 import UIKit
 
 protocol ImageDetailWorkerInterface {
-    func loadImageDetailInfo(id: Int ,success: @escaping (DetailDisplayModel) -> Void ,fail: @escaping (Error) -> Void)
-    func loadImageBlur(url: String,success: @escaping (UIImage) -> Void ,fail: @escaping (Error) -> Void)
-    func loadImageGrayScale(url: String,success: @escaping (UIImage) -> Void ,fail: @escaping (Error) -> Void)
+    func loadImageDetailInfo(id: Int) async throws -> DetailDisplayModel
+    func loadImageBlur(url: String) async throws -> UIImage
+    func loadImageGrayScale(url: String) async throws -> UIImage
 }
 
 class ImageDetailWorker: ImageDetailWorkerInterface
@@ -26,37 +26,19 @@ class ImageDetailWorker: ImageDetailWorkerInterface
         self.service = service
     }
     
-    func loadImageDetailInfo(id: Int ,success: @escaping (DetailDisplayModel) -> Void ,fail: @escaping (Error) -> Void) {
+    func loadImageDetailInfo(id: Int) async throws -> DetailDisplayModel {
         let url = ImageLoaderManager.shared.getURLImageDetail(id: id)
-        service.loadImageDetail(url: url) { result in
-            switch result {
-            case .success(let response):
-                success(response)
-            case .failure(let error):
-                fail(error)
-            }
-        }
+        let response = try await service.loadImageDetail(url: url)
+        return response
     }
     
-    func loadImageBlur(url: String,success: @escaping (UIImage) -> Void ,fail: @escaping (Error) -> Void) {
-        ImageLoaderManager.shared.loadImage(from: url) { result in
-            switch result {
-            case .success(let imgBlurResult):
-                success(imgBlurResult)
-            case .failure(let error):
-                fail(error)
-            }
-        }
+    func loadImageBlur(url: String) async throws -> UIImage {
+        let imageBlurResponse = try await ImageLoaderManager.shared.loadImage(from: url)
+        return imageBlurResponse
     }
     
-    func loadImageGrayScale(url: String,success: @escaping (UIImage) -> Void ,fail: @escaping (Error) -> Void) {
-        ImageLoaderManager.shared.loadImage(from: url) { result in
-            switch result {
-            case .success(let imgGrayScaleResult):
-                success(imgGrayScaleResult)
-            case .failure(let error):
-                fail(error)
-            }
-        }
+    func loadImageGrayScale(url: String) async throws -> UIImage {
+        let imageGrayScaleResponse = try await ImageLoaderManager.shared.loadImage(from: url)
+        return imageGrayScaleResponse
     }
 }

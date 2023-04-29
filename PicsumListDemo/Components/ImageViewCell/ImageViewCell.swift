@@ -27,19 +27,14 @@ class ImageViewCell: UICollectionViewCell {
     }
     
     func configureCell(imageUrl: String) {
-        ImageLoaderManager.shared.loadImage(from: imageUrl) {[weak self] result in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let img):
-                    self.imgV.image = img
-                    self.delegate?.keepCacheImage(urlCache: imageUrl, imageCache: img)
-                    print("load image success")
-                case .failure(_):
-                    self.imgV.image = nil
-                    self.delegate?.keepCacheImage(urlCache: imageUrl, imageCache: nil)
-                    print("load image fail")
-                }
+        Task { @MainActor in
+            do {
+                let imageDisplay = try await ImageLoaderManager.shared.loadImage(from: imageUrl)
+                imgV.image = imageDisplay
+                self.delegate?.keepCacheImage(urlCache: imageUrl, imageCache: imageDisplay)
+            } catch {
+                imgV.image = nil
+                self.delegate?.keepCacheImage(urlCache: imageUrl, imageCache: nil)
             }
         }
     }

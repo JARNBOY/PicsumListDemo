@@ -98,25 +98,32 @@ class ImageDetailViewController: UIViewController, ImageDetailDisplayLogic
     
     // MARK: Function
     func getImageDetail() {
-        interactor?.getImageDetail()
+        Task { @MainActor in
+            await interactor?.getImageDetail()
+        }
     }
     
     // MARK: Event UI Action
     
     @IBAction func typeSegment_click(_ sender: UISegmentedControl) {
-        segmentTypeSelected = sender.selectedSegmentIndex.toSegmentType()
-        if segmentTypeSelected == .blur && blurImage == nil {
-            self.interactor?.getBlurImage(blur: Double(blurSlider.value))
-        } else if segmentTypeSelected == .grayScale && grayScaleImage == nil {
-            self.interactor?.getGrayScaleImage()
+        Task { @MainActor in
+            segmentTypeSelected = sender.selectedSegmentIndex.toSegmentType()
+            if segmentTypeSelected == .blur && blurImage == nil {
+                await self.interactor?.getBlurImage(blur: Double(blurSlider.value))
+            } else if segmentTypeSelected == .grayScale && grayScaleImage == nil {
+                await self.interactor?.getGrayScaleImage()
+            }
+            setUpSegmentView()
         }
-        setUpSegmentView()
     }
     
     @IBAction func blurSlider_action(_ sender: UISlider) {
-        blurImage = nil
-        self.interactor?.getBlurImage(blur: Double(sender.value))
+        Task { @MainActor in
+            blurImage = nil
+            await self.interactor?.getBlurImage(blur: Double(sender.value))
+        }
     }
+    
     // MARK: ImageDetailDisplayLogic
     func displayGetImageDetail(viewModel: ImageDetail.GetDetailDisplay.ViewModel) {
         DispatchQueue.main.async {

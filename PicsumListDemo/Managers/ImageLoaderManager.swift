@@ -11,28 +11,16 @@ class ImageLoaderManager {
     static let shared = ImageLoaderManager()
     
     //MARK: LoadImage
-    func loadImage(from url: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
-        APIManager.shared.request(endpoint: url, method: .get, headers: nil, body: nil) { data, error in
-            guard let data = data, error == nil else {
-                completion(.failure(error ?? NSError(domain: "Unknown error", code: 0)))
-                return
-            }
-            guard let image = UIImage(data: data) else {
-                completion(.failure(NSError(domain: "Failed to convert data to image", code: 0)))
-                return
-            }
-            completion(.success(image))
+    func loadImage(from url: String) async throws -> UIImage {
+        let data = try await APIManager.shared.request(endpoint: url, method: .get, headers: nil, body: nil)
+        guard let image = UIImage(data: data) else {
+            throw NSError(domain: "Failed to convert data to image", code: 0)
         }
+        return image
     }
     
-    func loadImageData(from url: String, completion: @escaping (Result<Data, Error>) -> Void) {
-        APIManager.shared.request(endpoint: url, method: .get, headers: nil, body: nil) { data, error in
-            guard let data = data, error == nil else {
-                completion(.failure(error ?? NSError(domain: "Unknown error", code: 0)))
-                return
-            }
-            completion(.success(data))
-        }
+    func loadImageData(from url: String) async throws -> Data {
+        return try await APIManager.shared.request(endpoint: url, method: .get, headers: nil, body: nil)
     }
     
     //MARK: path URL Image From PICSUM

@@ -110,6 +110,7 @@ extension ImageListViewController: UICollectionViewDelegate, UICollectionViewDat
             cell.setImageCache(image: imageCache)
         } else {
             cell.configureCell(imageUrl: imageURLs[indexPath.row])
+            
         }
         
         //fetch more when find last index
