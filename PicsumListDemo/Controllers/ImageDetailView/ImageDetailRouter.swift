@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol ImageDetailRoutingLogic
 {
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToFullImage()
 }
 
 protocol ImageDetailDataPassing
@@ -28,9 +28,26 @@ class ImageDetailRouter: NSObject, ImageDetailRoutingLogic, ImageDetailDataPassi
     var dataStore: ImageDetailDataStore?
     
     // MARK: Routing
+    func routeToFullImage()
+    {
+        let storyboard = UIStoryboard(name: "FullImageStoryboard", bundle: nil)
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "FullImageViewController") as! FullImageViewController
+        var destinationDS = destinationVC.router!.dataStore!
+        passDataToImageDetail(source: dataStore!, destination: &destinationDS)
+        navigateToImageDetail(source: viewController!, destination: destinationVC)
+    }
     
     // MARK: Navigation
     
+    func navigateToImageDetail(source: ImageDetailViewController, destination: FullImageViewController) {
+        destination.modalPresentationStyle = .fullScreen
+        source.navigationController?.pushViewController(destination, animated: true)
+    }
+    
     // MARK: Passing data
+    
+    func passDataToImageDetail(source: ImageDetailDataStore, destination: inout FullImageDataStore) {
+        destination.imageDetailInfo = source.imageDetailInfo
+    }
     
 }

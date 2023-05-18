@@ -30,6 +30,15 @@
 		FB6D028C29F826D40095A983 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6D028B29F826D40095A983 /* APIManager.swift */; };
 		FB6D028F29F82CA30095A983 /* ImageDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6D028E29F82CA30095A983 /* ImageDetail.swift */; };
 		FB6D029129F84BDA0095A983 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6D029029F84BDA0095A983 /* Int.swift */; };
+		FB9C56F62A1601A700CE2AB7 /* FullImageStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB9C56F52A1601A700CE2AB7 /* FullImageStoryboard.storyboard */; };
+		FB9C56FD2A1601E100CE2AB7 /* FullImagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9C56F72A1601E100CE2AB7 /* FullImagePresenter.swift */; };
+		FB9C56FE2A1601E100CE2AB7 /* FullImageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9C56F82A1601E100CE2AB7 /* FullImageWorker.swift */; };
+		FB9C56FF2A1601E100CE2AB7 /* FullImageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9C56F92A1601E100CE2AB7 /* FullImageRouter.swift */; };
+		FB9C57002A1601E100CE2AB7 /* FullImageModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9C56FA2A1601E100CE2AB7 /* FullImageModels.swift */; };
+		FB9C57012A1601E100CE2AB7 /* FullImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9C56FB2A1601E100CE2AB7 /* FullImageViewController.swift */; };
+		FB9C57022A1601E100CE2AB7 /* FullImageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9C56FC2A1601E100CE2AB7 /* FullImageInteractor.swift */; };
+		FB9C57052A16120600CE2AB7 /* ImageCommonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9C57042A16120600CE2AB7 /* ImageCommonService.swift */; };
+		FB9C57082A161B8500CE2AB7 /* SomeThingImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9C57072A161B8500CE2AB7 /* SomeThingImageService.swift */; };
 		FBFEE19629F6C91200EFAB20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFEE19529F6C91200EFAB20 /* AppDelegate.swift */; };
 		FBFEE19829F6C91200EFAB20 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFEE19729F6C91200EFAB20 /* SceneDelegate.swift */; };
 		FBFEE19F29F6C91400EFAB20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBFEE19E29F6C91400EFAB20 /* Assets.xcassets */; };
@@ -60,6 +69,15 @@
 		FB6D028B29F826D40095A983 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		FB6D028E29F82CA30095A983 /* ImageDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetail.swift; sourceTree = "<group>"; };
 		FB6D029029F84BDA0095A983 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		FB9C56F52A1601A700CE2AB7 /* FullImageStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FullImageStoryboard.storyboard; sourceTree = "<group>"; };
+		FB9C56F72A1601E100CE2AB7 /* FullImagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImagePresenter.swift; sourceTree = "<group>"; };
+		FB9C56F82A1601E100CE2AB7 /* FullImageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageWorker.swift; sourceTree = "<group>"; };
+		FB9C56F92A1601E100CE2AB7 /* FullImageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageRouter.swift; sourceTree = "<group>"; };
+		FB9C56FA2A1601E100CE2AB7 /* FullImageModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageModels.swift; sourceTree = "<group>"; };
+		FB9C56FB2A1601E100CE2AB7 /* FullImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageViewController.swift; sourceTree = "<group>"; };
+		FB9C56FC2A1601E100CE2AB7 /* FullImageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageInteractor.swift; sourceTree = "<group>"; };
+		FB9C57042A16120600CE2AB7 /* ImageCommonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCommonService.swift; sourceTree = "<group>"; };
+		FB9C57072A161B8500CE2AB7 /* SomeThingImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeThingImageService.swift; sourceTree = "<group>"; };
 		FBFEE19229F6C91200EFAB20 /* PicsumListDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicsumListDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBFEE19529F6C91200EFAB20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBFEE19729F6C91200EFAB20 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +100,7 @@
 		FB18BFB829F6CC95004DC6EB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FB9C56F42A16016200CE2AB7 /* FullImageView */,
 				FB18BFC829F6CDA2004DC6EB /* ImageDetailView */,
 				FB18BFBB29F6CD4E004DC6EB /* ImageListView */,
 			);
@@ -121,7 +140,6 @@
 				FB18BFCC29F6CDDA004DC6EB /* ImageDetailModels.swift */,
 				FB18BFCD29F6CDDA004DC6EB /* ImageDetailViewController.swift */,
 				FB18BFCE29F6CDDA004DC6EB /* ImageDetailInteractor.swift */,
-				FB6D028929F8251F0095A983 /* ImageDetailService.swift */,
 			);
 			path = ImageDetailView;
 			sourceTree = "<group>";
@@ -168,6 +186,38 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		FB9C56F42A16016200CE2AB7 /* FullImageView */ = {
+			isa = PBXGroup;
+			children = (
+				FB9C56F52A1601A700CE2AB7 /* FullImageStoryboard.storyboard */,
+				FB9C56F72A1601E100CE2AB7 /* FullImagePresenter.swift */,
+				FB9C56F82A1601E100CE2AB7 /* FullImageWorker.swift */,
+				FB9C56F92A1601E100CE2AB7 /* FullImageRouter.swift */,
+				FB9C56FA2A1601E100CE2AB7 /* FullImageModels.swift */,
+				FB9C56FB2A1601E100CE2AB7 /* FullImageViewController.swift */,
+				FB9C56FC2A1601E100CE2AB7 /* FullImageInteractor.swift */,
+			);
+			path = FullImageView;
+			sourceTree = "<group>";
+		};
+		FB9C57032A160E9A00CE2AB7 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				FB9C57062A161A6F00CE2AB7 /* ImageService */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		FB9C57062A161A6F00CE2AB7 /* ImageService */ = {
+			isa = PBXGroup;
+			children = (
+				FB9C57042A16120600CE2AB7 /* ImageCommonService.swift */,
+				FB6D028929F8251F0095A983 /* ImageDetailService.swift */,
+				FB9C57072A161B8500CE2AB7 /* SomeThingImageService.swift */,
+			);
+			path = ImageService;
+			sourceTree = "<group>";
+		};
 		FBFEE18929F6C91200EFAB20 = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +242,7 @@
 				FB18BFE129F6DCB1004DC6EB /* ConfigConstants */,
 				FB18BFB929F6CCA9004DC6EB /* Managers */,
 				FB18BFD929F6D806004DC6EB /* Components */,
+				FB9C57032A160E9A00CE2AB7 /* Services */,
 				FB18BFB829F6CC95004DC6EB /* Controllers */,
 				FBFEE19529F6C91200EFAB20 /* AppDelegate.swift */,
 				FBFEE19729F6C91200EFAB20 /* SceneDelegate.swift */,
@@ -262,6 +313,7 @@
 			files = (
 				FB18BFD829F6CF08004DC6EB /* ImageDetailStoryboard.storyboard in Resources */,
 				FB18BFDE29F6D920004DC6EB /* ImageViewCell.xib in Resources */,
+				FB9C56F62A1601A700CE2AB7 /* FullImageStoryboard.storyboard in Resources */,
 				FBFEE1A229F6C91400EFAB20 /* LaunchScreen.storyboard in Resources */,
 				FB18BFD629F6CEE4004DC6EB /* ImageListStoryboard.storyboard in Resources */,
 				FBFEE19F29F6C91400EFAB20 /* Assets.xcassets in Resources */,
@@ -275,17 +327,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB9C56FE2A1601E100CE2AB7 /* FullImageWorker.swift in Sources */,
 				FB18BFD029F6CDDA004DC6EB /* ImageDetailWorker.swift in Sources */,
 				FB18BFD129F6CDDA004DC6EB /* ImageDetailRouter.swift in Sources */,
 				FB18BFD429F6CDDA004DC6EB /* ImageDetailInteractor.swift in Sources */,
 				FBFEE19629F6C91200EFAB20 /* AppDelegate.swift in Sources */,
 				FB18BFC329F6CD93004DC6EB /* ImageListWorker.swift in Sources */,
+				FB9C57082A161B8500CE2AB7 /* SomeThingImageService.swift in Sources */,
 				FB6D028A29F8251F0095A983 /* ImageDetailService.swift in Sources */,
 				FB6D028F29F82CA30095A983 /* ImageDetail.swift in Sources */,
 				FB6D029129F84BDA0095A983 /* Int.swift in Sources */,
 				FB18BFE829F6F6B6004DC6EB /* CollectionViewCell.swift in Sources */,
+				FB9C57002A1601E100CE2AB7 /* FullImageModels.swift in Sources */,
+				FB9C57012A1601E100CE2AB7 /* FullImageViewController.swift in Sources */,
 				FB18BFE329F6DCCD004DC6EB /* ImageConstants.swift in Sources */,
+				FB9C56FF2A1601E100CE2AB7 /* FullImageRouter.swift in Sources */,
+				FB9C56FD2A1601E100CE2AB7 /* FullImagePresenter.swift in Sources */,
 				FB18BFC229F6CD93004DC6EB /* ImageListPresenter.swift in Sources */,
+				FB9C57052A16120600CE2AB7 /* ImageCommonService.swift in Sources */,
 				FB18BFD229F6CDDA004DC6EB /* ImageDetailModels.swift in Sources */,
 				FB18BFC729F6CD93004DC6EB /* ImageListInteractor.swift in Sources */,
 				FB18BFE029F6DA79004DC6EB /* ImageLoaderManager.swift in Sources */,
@@ -295,6 +354,7 @@
 				FBFEE19829F6C91200EFAB20 /* SceneDelegate.swift in Sources */,
 				FB18BFC629F6CD93004DC6EB /* ImageListViewController.swift in Sources */,
 				FB18BFC529F6CD93004DC6EB /* ImageListModels.swift in Sources */,
+				FB9C57022A1601E100CE2AB7 /* FullImageInteractor.swift in Sources */,
 				FB18BFDB29F6D855004DC6EB /* ImageViewCell.swift in Sources */,
 				FB18BFCF29F6CDDA004DC6EB /* ImageDetailPresenter.swift in Sources */,
 			);

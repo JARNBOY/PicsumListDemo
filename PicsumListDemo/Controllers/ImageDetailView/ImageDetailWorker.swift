@@ -20,9 +20,9 @@ protocol ImageDetailWorkerInterface {
 
 class ImageDetailWorker: ImageDetailWorkerInterface
 {
-    var service: ImageDetailService!
+    var service: ImageDetailServiceInterface!
     
-    init(service: ImageDetailService) {
+    init(service: ImageDetailServiceInterface) {
         self.service = service
     }
     

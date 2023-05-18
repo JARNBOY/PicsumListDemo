@@ -127,6 +127,10 @@ class ImageDetailViewController: UIViewController, ImageDetailDisplayLogic
         }
     }
     
+    @IBAction func btnOpenFullImage_click(_ sender: Any) {
+        router?.routeToFullImage()
+    }
+    
     func displayGetBlurImage(imageBlur: UIImage) {
         DispatchQueue.main.async {
             self.blurImage = imageBlur

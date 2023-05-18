@@ -26,10 +26,8 @@ protocol ImageDetailDataStore
 
 class ImageDetailInteractor: ImageDetailBusinessLogic, ImageDetailDataStore
 {
-    
-    
     var presenter: ImageDetailPresentationLogic?
-    var worker: ImageDetailWorker = ImageDetailWorker(service: ImageDetailService())
+    var worker: ImageDetailWorker = ImageDetailWorker(service: ImageCommonService())
     
     var imageDetailInfo: ImageDetailInfo? = nil
     

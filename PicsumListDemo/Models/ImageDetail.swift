@@ -25,3 +25,11 @@ struct DetailDisplayModel: Codable {
         case downloadUrl = "download_url"
     }
 }
+
+struct SomeThingInfoModel: Codable {
+    var id: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+    }
+}
