@@ -8,5 +8,5 @@
 import UIKit
 
 protocol ImageDetailServiceInterface {
-    func loadImageDetail(url: String, completion: @escaping (Result<DetailDisplayModel, Error>) -> Void)
+    func loadImageDetail<T: Decodable>(url: String, completion: @escaping (Result<T, Error>) -> Void)
 }

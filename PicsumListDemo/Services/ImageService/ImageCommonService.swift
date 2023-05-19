@@ -8,7 +8,7 @@
 import Foundation
 
 class ImageCommonService: ImageDetailServiceInterface {
-    func loadImageDetail(url: String, completion: @escaping (Result<DetailDisplayModel, Error>) -> Void) {
+    func loadImageDetail<T: Decodable>(url: String, completion: @escaping (Result<T, Error>) -> Void) {
         APIManager.shared.request(endpoint: url, method: .get, headers: nil, body: nil) { data, error in
             guard let data = data, error == nil else {
                 completion(.failure(error ?? NSError(domain: "Unknown error", code: 0)))
@@ -16,9 +16,9 @@ class ImageCommonService: ImageDetailServiceInterface {
             }
 
             do {
-                let responseDetailDisplay = try JSONDecoder().decode(DetailDisplayModel.self, from: data)
-                print(responseDetailDisplay)
-                completion(.success(responseDetailDisplay))
+                let response = try JSONDecoder().decode(T.self, from: data)
+                print(response)
+                completion(.success(response))
             } catch {
                 print("Error decoding JSON: \(error)")
                 completion(.failure(error))

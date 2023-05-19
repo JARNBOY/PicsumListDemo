@@ -28,7 +28,7 @@ class ImageDetailWorker: ImageDetailWorkerInterface
     
     func loadImageDetailInfo(id: Int ,success: @escaping (DetailDisplayModel) -> Void ,fail: @escaping (Error) -> Void) {
         let url = ImageLoaderManager.shared.getURLImageDetail(id: id)
-        service.loadImageDetail(url: url) { result in
+        service.loadImageDetail<DetailDisplayModel>(url: url) { (result: Result<DetailDisplayModel, Error>) in
             switch result {
             case .success(let response):
                 success(response)
