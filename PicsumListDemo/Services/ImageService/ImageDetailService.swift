@@ -7,6 +7,9 @@
 
 import UIKit
 
+typealias Response<T> = Result<T, Error>
+typealias ImageDetailCompletion<T> = (Response<T>) -> Void
+
 protocol ImageDetailServiceInterface {
-    func loadImageDetail<T: Decodable>(url: String, completion: @escaping (Result<T, Error>) -> Void)
+    func loadImageDetail<T: Decodable>(url: String, completion: @escaping ImageDetailCompletion<T>)
 }

@@ -39,6 +39,7 @@
 		FB9C57022A1601E100CE2AB7 /* FullImageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9C56FC2A1601E100CE2AB7 /* FullImageInteractor.swift */; };
 		FB9C57052A16120600CE2AB7 /* ImageCommonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9C57042A16120600CE2AB7 /* ImageCommonService.swift */; };
 		FB9C57082A161B8500CE2AB7 /* SomeThingImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9C57072A161B8500CE2AB7 /* SomeThingImageService.swift */; };
+		FBA1AF642A174A9B0039F7EC /* FullImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA1AF632A174A9B0039F7EC /* FullImageService.swift */; };
 		FBFEE19629F6C91200EFAB20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFEE19529F6C91200EFAB20 /* AppDelegate.swift */; };
 		FBFEE19829F6C91200EFAB20 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFEE19729F6C91200EFAB20 /* SceneDelegate.swift */; };
 		FBFEE19F29F6C91400EFAB20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBFEE19E29F6C91400EFAB20 /* Assets.xcassets */; };
@@ -78,6 +79,7 @@
 		FB9C56FC2A1601E100CE2AB7 /* FullImageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageInteractor.swift; sourceTree = "<group>"; };
 		FB9C57042A16120600CE2AB7 /* ImageCommonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCommonService.swift; sourceTree = "<group>"; };
 		FB9C57072A161B8500CE2AB7 /* SomeThingImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeThingImageService.swift; sourceTree = "<group>"; };
+		FBA1AF632A174A9B0039F7EC /* FullImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageService.swift; sourceTree = "<group>"; };
 		FBFEE19229F6C91200EFAB20 /* PicsumListDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicsumListDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBFEE19529F6C91200EFAB20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBFEE19729F6C91200EFAB20 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 		FB18BFB829F6CC95004DC6EB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FBA1AF622A174A420039F7EC /* SomeThingView */,
 				FB9C56F42A16016200CE2AB7 /* FullImageView */,
 				FB18BFC829F6CDA2004DC6EB /* ImageDetailView */,
 				FB18BFBB29F6CD4E004DC6EB /* ImageListView */,
@@ -213,9 +216,17 @@
 			children = (
 				FB9C57042A16120600CE2AB7 /* ImageCommonService.swift */,
 				FB6D028929F8251F0095A983 /* ImageDetailService.swift */,
+				FBA1AF632A174A9B0039F7EC /* FullImageService.swift */,
 				FB9C57072A161B8500CE2AB7 /* SomeThingImageService.swift */,
 			);
 			path = ImageService;
+			sourceTree = "<group>";
+		};
+		FBA1AF622A174A420039F7EC /* SomeThingView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SomeThingView;
 			sourceTree = "<group>";
 		};
 		FBFEE18929F6C91200EFAB20 = {
@@ -357,6 +368,7 @@
 				FB9C57022A1601E100CE2AB7 /* FullImageInteractor.swift in Sources */,
 				FB18BFDB29F6D855004DC6EB /* ImageViewCell.swift in Sources */,
 				FB18BFCF29F6CDDA004DC6EB /* ImageDetailPresenter.swift in Sources */,
+				FBA1AF642A174A9B0039F7EC /* FullImageService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

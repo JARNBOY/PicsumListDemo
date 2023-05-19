@@ -18,15 +18,15 @@ protocol FullImageWorkerInterface {
 
 class FullImageWorker: FullImageWorkerInterface
 {
-    var service: ImageDetailServiceInterface!
+    var service: FullImageServiceInterface!
     
-    init(service: ImageDetailServiceInterface) {
+    init(service: FullImageServiceInterface) {
         self.service = service
     }
     
     func loadImageDetailInfo(id: Int ,success: @escaping (DetailDisplayModel) -> Void ,fail: @escaping (Error) -> Void) {
         let url = ImageLoaderManager.shared.getURLImageDetail(id: id)
-        service.loadImageDetail<DetailDisplayModel>(url: url) { (result: Result<DetailDisplayModel, Error>) in
+        service.loadImageDetail(url: url) { (result: Response<DetailDisplayModel>) in
             switch result {
             case .success(let response):
                 success(response)

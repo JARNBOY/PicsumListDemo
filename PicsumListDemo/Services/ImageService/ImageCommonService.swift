@@ -7,8 +7,9 @@
 
 import Foundation
 
+
 class ImageCommonService: ImageDetailServiceInterface {
-    func loadImageDetail<T: Decodable>(url: String, completion: @escaping (Result<T, Error>) -> Void) {
+    func loadImageDetail<T: Decodable>(url: String, completion: @escaping ImageDetailCompletion<T>) {
         APIManager.shared.request(endpoint: url, method: .get, headers: nil, body: nil) { data, error in
             guard let data = data, error == nil else {
                 completion(.failure(error ?? NSError(domain: "Unknown error", code: 0)))
